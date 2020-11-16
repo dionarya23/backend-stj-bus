@@ -7,5 +7,6 @@ const router = baseRoute()
 
 router.post("/login", baseController(req => authController.login(req)))
 router.post("/register", baseController(req => authController.register(req)))
+router.post("/check-email", baseController(req => authController(req)))
 
 module.exports = router

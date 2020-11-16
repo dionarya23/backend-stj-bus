@@ -9,7 +9,7 @@ const generateNumber = require("../helpers/generateNumberForVerifEmail");
 
 const ApiError = require("../helpers/ApiError");
 
-const { isEmail } = require("validator")
+const { isEmail } = require("validator");
 
 module.exports = {
   async login(req) {
@@ -77,7 +77,7 @@ module.exports = {
         };
       }
 
-      if(!isEmail(email)) {
+      if (!isEmail(email)) {
         return {
           status: HttpStatus.BAD_REQUEST,
           message: "Email incorrect format",
@@ -89,24 +89,27 @@ module.exports = {
         firstname,
         lastname,
         email,
-        password : newPassword,
+        password: newPassword,
         phone_number,
         user_type,
-        code_verif: generateNumber
-      }
-      
+        code_verif: generateNumber,
+      };
+
       await UserRepository.createUser(userToDb);
 
       let message = {
         from: process.env.MAIL_FROM,
         to: email,
         subject: "Verifikasi Akun Sudiro Tunggal Jaya Anda",
-        html: verifikasiTemplate({ name: firstname, number: userToDb.code_verif }),
+        html: verifikasiTemplate({
+          name: firstname,
+          number: userToDb.code_verif,
+        }),
       };
 
       emailSender.sendMail(message, function (err, info) {
         if (err) {
-          console.log("send email : ", err)
+          console.log("send email : ", err);
           return {
             status: HttpStatus.INTERNAL_SERVER_ERROR,
             message: "Send email error",
@@ -114,17 +117,34 @@ module.exports = {
         }
         console.log("Success send email ", info);
       });
-      
+
       return {
         status: HttpStatus.CREATED,
         message: "Success Register",
       };
     } catch (error) {
-      console.log("register prosess : ", error)
+      console.log("register prosess : ", error);
       throw new ApiError(
         "Internal Server Error.",
         HttpStatus.INTERNAL_SERVER_ERROR
       );
     }
+  },
+
+  async checkEmail(req) {
+    const { email } = req.body;
+
+    if (!isEmail(email)) {
+      return {
+        status: HttpStatus.BAD_REQUEST,
+        message: "Email incorrect format",
+      };
+    }
+
+    const user = await UserRepository.findUserByEmail(email);
+    return {
+      status: user ? HttpStatus.OK : HttpStatus.NOT_FOUND,
+      message: user ? "Email exist" : "Email not found",
+    };
   },
 };

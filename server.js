@@ -6,6 +6,12 @@ const morgan = require('morgan')
 const compression = require('compression')
 const app = express()
 
+const db = require('./config/database')
+
+db.sync({
+    forced: false
+}).then(() => console.log(`db connected`));
+
 /**
  * Routes
  */
