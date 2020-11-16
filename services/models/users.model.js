@@ -30,6 +30,14 @@ const UserModel = sequelize.define(
       type: DataTypes.ENUM("customer", "mechanic", "driver", "admin"),
       defaultValue: "customer"
     },
+    code_verif: {
+      type: DataTypes.STRING(6),
+      defaultValue: null
+    },
+    token_forgotPassword: {
+      type: DataTypes.STRING,
+      defaultValue: null
+    }
   },
   {
     timestamps: true,

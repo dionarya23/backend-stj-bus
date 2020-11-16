@@ -1,5 +1,4 @@
 const { Users } = require("../services/table");
-const { Or } = require("sequelize")
 
 module.exports = {
   async findUserByEmail(email) {
@@ -26,20 +25,17 @@ module.exports = {
     }
   },
 
-  async findUserByPhoneNumber(emailAndPhoneNumber) {
+  async findUserbyPhoneNumber(phone_number) {
     try {
       const user = await Users.findOne({
         where: {
-          [Op.or]: [
-            { email: emailAndPhoneNumber.email },
-            { phone_number: emailAndPhoneNumber.phone_number },
-          ],
+          phone_number,
         },
       });
 
       return user;
     } catch (e) {
-      console.log("findEmailOrPhoneNumber error : ", e);
+      console.log("findUserbyPhoneNumber error : ", e);
       throw "Something error";
     }
   },
