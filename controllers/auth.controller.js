@@ -46,7 +46,7 @@ module.exports = {
 
   async register(req) {
     try {
-      const user = await UserRepository.findUserByEmail(email);
+      const user = await UserRepository.findUserByEmail(req.body.email);
       const user = await UserRepository.findUserByEmail(email);
 
       if (user) {
