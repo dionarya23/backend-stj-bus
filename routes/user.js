@@ -5,6 +5,6 @@ const authController = require("../controllers/auth.controller")
 
 const router = baseRoute()
 
-router.post("/login", baseController(req => authController.login()))
+router.post("/login", baseController(req => authController.login(req)))
 
 module.exports = router
