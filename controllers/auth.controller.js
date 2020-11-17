@@ -36,16 +36,16 @@ module.exports = {
             };
           }
         } else {
-          throw new ApiError(
-            "something wrong, check email and password",
-            HttpStatus.NOT_FOUND
-          );
+           return {
+              status: HttpStatus.BAD_REQUEST,
+              message: "Your account must verify",
+            };
         }
       } else {
-        throw new ApiError(
-          "something wrong, check email and password",
-          HttpStatus.NOT_FOUND
-        );
+        return {
+          status: HttpStatus.BAD_REQUEST,
+          message:  "something wrong, check email and password",
+        };
       }
     } catch (error) {
       console.log("Login error ", error);
