@@ -39,4 +39,17 @@ module.exports = {
       throw "Something error";
     }
   },
+
+  async updateUserByEmail(email, dataUser) {
+    try {
+      await Users.update(dataUser, {
+        where: {
+          email
+        }
+      })
+    } catch (e) {
+      console.log("updateUserByEmail error : ", e);
+      throw "Something error";
+    }
+  }
 };
