@@ -40,16 +40,27 @@ module.exports = {
     }
   },
 
-  async updateUserByEmail(email, dataUser) {
+  async updateUser(parameter, dataUser) {
     try {
       await Users.update(dataUser, {
-        where: {
-          email
-        }
-      })
+        where: parameter,
+      });
     } catch (e) {
       console.log("updateUserByEmail error : ", e);
       throw "Something error";
     }
-  }
+  },
+
+  async findUser(parameter) {
+    try {
+      const user = await Users.findOne({
+        where: parameter,
+      });
+
+      return user;
+    } catch (e) {
+      console.log("FindUserByEmail error : ", e);
+      throw "Something error";
+    }
+  },
 };

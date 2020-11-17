@@ -5,10 +5,12 @@ const bcrypt = require("bcrypt");
 
 const emailSender = require("../config/nodemailer");
 const verifikasiTemplate = require("../helpers/verifikasi.template_mail");
+const resetPasswordTemplate = require("../helpers/resetPassword.template");
 const generateNumber = require("../helpers/generateNumberForVerifEmail");
 const ApiError = require("../helpers/ApiError");
 const { isEmail } = require("validator");
 const userRepository = require("../repositories/user.repository");
+const md5 = require("md5");
 
 module.exports = {
   async login(req) {
@@ -36,15 +38,15 @@ module.exports = {
             };
           }
         } else {
-           return {
-              status: HttpStatus.BAD_REQUEST,
-              message: "Your account must verify",
-            };
+          return {
+            status: HttpStatus.BAD_REQUEST,
+            message: "something wrong, check email and password",
+          };
         }
       } else {
         return {
           status: HttpStatus.BAD_REQUEST,
-          message:  "something wrong, check email and password",
+          message: "something wrong, check email and password",
         };
       }
     } catch (error) {
@@ -155,74 +157,172 @@ module.exports = {
   },
 
   async resendCodeVerif(req) {
-    const { email } = req.body;
+    try {
+      const { email } = req.body;
 
-    if (!isEmail(email)) {
-      return {
-        status: HttpStatus.BAD_REQUEST,
-        message: "Email incorrect format",
-      };
-    }
-
-    const user = await UserRepository.findUserByEmail(email);
-
-    if (!user) {
-      return {
-        status: HttpStatus.NOT_FOUND,
-        message: "Email not found",
-      };
-    }
-
-    let message = {
-      from: process.env.MAIL_FROM,
-      to: email,
-      subject: "Verifikasi Akun Sudiro Tunggal Jaya Anda",
-      html: verifikasiTemplate({
-        name: firstname,
-        number: userToDb.code_verif,
-      }),
-    };
-
-    emailSender.sendMail(message, function (err, info) {
-      if (err) {
-        console.log("send email : ", err);
+      if (!isEmail(email)) {
         return {
-          status: HttpStatus.INTERNAL_SERVER_ERROR,
-          message: "Send email error",
+          status: HttpStatus.BAD_REQUEST,
+          message: "Email incorrect format",
         };
       }
-      console.log("Success send email ", info);
-    });
 
-    return {
-      status: HttpStatus.OK,
-      message: "Success Send Code Verif to your email",
-    };
-  },
+      const user = await UserRepository.findUserByEmail(email);
 
-  async verifAccount(req) {
-    const { code_verif, email } = req.body;
-    const user = await UserRepository.findUserByEmail(email);
+      if (!user) {
+        return {
+          status: HttpStatus.NOT_FOUND,
+          message: "Email not found",
+        };
+      }
+      const newCode = generateNumber;
+      await userRepository.updateUser({ email }, { code_verif: newCode });
 
-    if (!user) {
-      return {
-        status: HttpStatus.NOT_FOUND,
-        message: "Email not found",
+      let message = {
+        from: process.env.MAIL_FROM,
+        to: email,
+        subject: "Verifikasi Akun Sudiro Tunggal Jaya Anda",
+        html: verifikasiTemplate({
+          name: user.firstname,
+          number: newCode,
+        }),
       };
-    }
 
-    if (user.code_verif != code_verif) {
-      return {
-        status: HttpStatus.BAD_REQUEST,
-        message: "Code verif wrong",
-      };
-    } else {
-      await userRepository.updateUserByEmail(email, { code_verif: null });
+      emailSender.sendMail(message, function (err, info) {
+        if (err) {
+          console.log("send email : ", err);
+          return {
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
+            message: "Send email error",
+          };
+        }
+        console.log("Success send email ", info);
+      });
 
       return {
         status: HttpStatus.OK,
-        message: "Success verif account",
+        message: "Success Send Code Verif to your email",
       };
+    } catch (error) {
+      console.log("resend code prosess : ", error);
+      throw new ApiError(
+        "Internal Server Error.",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
+  async verifAccount(req) {
+    try {
+      const { code_verif, email } = req.body;
+      const user = await UserRepository.findUserByEmail(email);
+
+      if (!user) {
+        return {
+          status: HttpStatus.NOT_FOUND,
+          message: "Email not found",
+        };
+      }
+
+      if (user.code_verif != code_verif) {
+        return {
+          status: HttpStatus.BAD_REQUEST,
+          message: "Code verif wrong",
+        };
+      } else {
+        await userRepository.updateUser({ email }, { code_verif: null });
+
+        return {
+          status: HttpStatus.OK,
+          message: "Success verif account",
+        };
+      }
+    } catch (error) {
+      console.log("verifAccount : ", error);
+      throw new ApiError(
+        "Internal Server Error.",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
+  async resetPassword(req) {
+    try {
+      const { email } = req.body;
+      const user = await UserRepository.findUserByEmail(email);
+
+      if (!user) {
+        return {
+          status: HttpStatus.NOT_FOUND,
+          message: "email not found",
+        };
+      } else {
+        const token = md5(email);
+        await userRepository.updateUser(
+          { email },
+          { token_forgotPassword: token }
+        );
+
+        let message = {
+          from: process.env.MAIL_FROM,
+          to: user.email,
+          subject: "Reset Password Akun Sudiro Tunggal Jaya Anda",
+          html: resetPasswordTemplate({
+            name: user.firstname,
+            link: `${process.env.BASEURL_RESET_PASSWORD}${token}`,
+          }),
+        };
+
+        emailSender.sendMail(message, (err, info) => {
+          if (err) {
+            console.log("send email : ", err);
+            return {
+              status: HttpStatus.INTERNAL_SERVER_ERROR,
+              message: "Send email error",
+            };
+          }
+          console.log("Success send email ", info);
+        });
+
+        return {
+          status: HttpStatus.OK,
+          message: "Success send email, check your email",
+        };
+      }
+    } catch (error) {
+      console.log("reset password prosess : ", error);
+      throw new ApiError(
+        "Internal Server Error.",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
+  async changePassword(req) {
+    try {
+      let { token_forgotPassword, new_password } = req.body;
+      const user = userRepository.findUser({ token_forgotPassword });
+
+      if (!user) {
+        return {
+          status: HttpStatus.NOT_FOUND,
+          message: "Token not found or expirated",
+        };
+      }
+
+      let password = bcrypt.hashSync(new_password, 10);
+
+      await userRepository.updateUser({ token_forgotPassword }, { password, token_forgotPassword: null });
+      return {
+        status: HttpStatus.OK,
+        message: "Success update password",
+      };
+    } catch (error) {
+      console.log("changePassword prosess : ", error);
+      throw new ApiError(
+        "Internal Server Error.",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
     }
   },
 };
