@@ -331,39 +331,34 @@ module.exports = {
 
   async authWithGoogle(req) {
     try {
-
-      const {
-        id_google
-       } = req.body
+      const { id_google } = req.body;
 
       //check if id_google exist
-      const user = await userRepository.findUser({id_google})
+      const user = await userRepository.findUser({ id_google });
 
       if (user) {
-        const token_jwt = jwt.sign({user}, process.env.JWTSECRET, {})
+        const token_jwt = jwt.sign({ user }, process.env.JWTSECRET, {});
         return {
-          status  : HttpStatus.OK,
-          message : "Success sign in with google",
-          data    : {
+          status: HttpStatus.OK,
+          message: "Success sign in with google",
+          data: {
             user,
-            token:token_jwt
-          }
-        }
-      }else{
-
-        await UserRepository.createUser(req.body)
-        const user_ = await userRepository.findUser({id_google})
-        const token_jwt = jwt.sign({user_}, process.env.JWTSECRET, {})
+            token: token_jwt,
+          },
+        };
+      } else {
+        await UserRepository.createUser(req.body);
+        const user_ = await userRepository.findUser({ id_google });
+        const token_jwt = jwt.sign({ user_ }, process.env.JWTSECRET, {});
         return {
-          status  : HttpStatus.CREATED,
-          message : "Success Sign up with google",
-          data    : {
+          status: HttpStatus.CREATED,
+          message: "Success Sign up with google",
+          data: {
             user_,
-            token:token_jwt
-          }
-        }
+            token: token_jwt,
+          },
+        };
       }
-
     } catch (error) {
       console.log("authWithGoogle prosess : ", error);
       throw new ApiError(
@@ -372,6 +367,4 @@ module.exports = {
       );
     }
   },
-
-
 };

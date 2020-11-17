@@ -6,7 +6,7 @@ const morgan = require('morgan')
 const compression = require('compression')
 const app = express()
 
-const db = require('./config/database')
+// const db = require('./config/database')
 
 // db.sync({
 //     forced: false
@@ -16,6 +16,7 @@ const db = require('./config/database')
  * Routes
  */
 const INDEX = require('./routes/index')
+const CHECKOUT = require('./routes/checkout')
 const USER = require('./routes/user')
 
 app.use(morgan("dev"))
@@ -25,5 +26,6 @@ app.use(json())
 
 app.use("/", INDEX)
 app.use("/api/v1/user", USER)
+app.use("/api/v1/checkout", CHECKOUT)
 
 app.listen(process.env.PORT || 3000, () => console.log(`App running on port ${process.env.PORT || 3000}`))
