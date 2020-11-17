@@ -37,6 +37,10 @@ const UserModel = sequelize.define(
     token_forgotPassword: {
       type: DataTypes.STRING,
       defaultValue: null
+    },
+    id_google : {
+      type: DataTypes.STRING,
+      defaultValue: null
     }
   },
   {

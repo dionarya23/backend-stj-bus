@@ -312,7 +312,10 @@ module.exports = {
 
       let password = bcrypt.hashSync(new_password, 10);
 
-      await userRepository.updateUser({ token_forgotPassword }, { password, token_forgotPassword: null });
+      await userRepository.updateUser(
+        { token_forgotPassword },
+        { password, token_forgotPassword: null }
+      );
       return {
         status: HttpStatus.OK,
         message: "Success update password",
@@ -325,4 +328,50 @@ module.exports = {
       );
     }
   },
+
+  async authWithGoogle(req) {
+    try {
+
+      const {
+        id_google
+       } = req.body
+
+      //check if id_google exist
+      const user = await userRepository.findUser({id_google})
+
+      if (user) {
+        const token_jwt = jwt.sign({user}, process.env.JWTSECRET, {})
+        return {
+          status  : HttpStatus.OK,
+          message : "Success sign in with google",
+          data    : {
+            user,
+            token:token_jwt
+          }
+        }
+      }else{
+
+        await UserRepository.createUser(req.body)
+        const user_ = await userRepository.findUser({id_google})
+        const token_jwt = jwt.sign({user_}, process.env.JWTSECRET, {})
+        return {
+          status  : HttpStatus.CREATED,
+          message : "Success Sign up with google",
+          data    : {
+            user_,
+            token:token_jwt
+          }
+        }
+      }
+
+    } catch (error) {
+      console.log("authWithGoogle prosess : ", error);
+      throw new ApiError(
+        "Internal Server Error.",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
+
 };
