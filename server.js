@@ -9,7 +9,8 @@ const app = express()
 // const db = require('./config/database')
 
 // db.sync({
-//     forced: false
+//     forced: true,
+//     sync: true
 // }).then(() => console.log(`db connected`));
 
 /**
@@ -18,6 +19,7 @@ const app = express()
 const INDEX = require('./routes/index')
 const CHECKOUT = require('./routes/checkout')
 const USER = require('./routes/user')
+const ORDER = require('./routes/order')
 
 app.use(morgan("dev"))
 app.use(compression())
@@ -27,5 +29,6 @@ app.use(json())
 app.use("/", INDEX)
 app.use("/api/v1/user", USER)
 app.use("/api/v1/checkout", CHECKOUT)
+app.use("/api/v1/order", ORDER)
 
 app.listen(process.env.PORT || 3000, () => console.log(`App running on port ${process.env.PORT || 3000}`))
