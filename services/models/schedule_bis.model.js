@@ -1,5 +1,5 @@
 "use strict";
-const { DataTypes, Sequelize } = require("sequelize");
+const { DataTypes } = require("sequelize");
 const sequelize = require("../../config/database");
 
 const ScheduleBisModel = sequelize.define(
