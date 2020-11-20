@@ -46,7 +46,7 @@ module.exports = {
         where: parameter,
       });
     } catch (e) {
-      console.log("updateUserByEmail error : ", e);
+      console.log("updateUser error : ", e);
       throw "Something error";
     }
   },
@@ -59,7 +59,7 @@ module.exports = {
 
       return user;
     } catch (e) {
-      console.log("FindUserByEmail error : ", e);
+      console.log("findUser error : ", e);
       throw "Something error";
     }
   },

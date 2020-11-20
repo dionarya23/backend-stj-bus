@@ -27,7 +27,6 @@ OrderModel.hasOne(ScheduleBisModel, {
   foreignKey: "schedule_bis_id"
 })
 
-
 UserModel.hasMany(OrderModel, {
   as: "order_bis",
   constraints: false,
