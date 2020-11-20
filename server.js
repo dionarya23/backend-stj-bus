@@ -5,6 +5,7 @@ const { json, urlencoded } = require("body-parser")
 const morgan = require('morgan')
 const compression = require('compression')
 const app = express()
+const cors = require("cors")
 
 // const db = require('./config/database')
 
@@ -22,6 +23,7 @@ const USER = require('./routes/user')
 const ORDER = require('./routes/order')
 const BIS = require('./routes/bis')
 
+app.use(cors())
 app.use(morgan("dev"))
 app.use(compression())
 app.use(urlencoded({extended: false}))
