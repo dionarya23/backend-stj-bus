@@ -7,7 +7,7 @@ const router = baseRoute()
 
 router.post("/login", baseController(req => authController.login(req)))
 router.post("/register", baseController(req => authController.register(req)))
-router.post("/check-email", baseController(req => authController(req)))
+router.post("/check-email", baseController(req => authController.checkEmail(req)))
 router.post("/resend-code-verif", baseController(req => authController.resendCodeVerif(req)))
 router.post("/verif-account", baseController(req => authController.verifAccount(req)))
 router.post("/reset-password", baseController(req => authController.resetPassword(req)))

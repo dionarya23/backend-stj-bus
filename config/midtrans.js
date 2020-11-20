@@ -1,6 +1,6 @@
-const midtransClient = require("midtrans-client");
+const { CoreApi } = require("midtrans-client");
 
-const midtransCoreApi = new midtransClient.CoreApi({
+const midtransCoreApi = new CoreApi({
   isProduction: false,
   serverKey: process.env.SERVERKEY_MIDTRANS,
   clientKey: process.env.CLIENTKEY_MIDTRANS,
