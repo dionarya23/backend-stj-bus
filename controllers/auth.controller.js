@@ -140,21 +140,31 @@ module.exports = {
   },
 
   async checkEmail(req) {
-    const { email } = req.body;
-    console.log("Email : ", email)
+    try {
 
-    if (!isEmail(email)) {
+      const { email } = req.body;
+      console.log("Email : ", email)
+  
+      if (!isEmail(email)) {
+        return {
+          status: HttpStatus.BAD_REQUEST,
+          message: "Email incorrect format",
+        };
+      }
+  
+      const user = await UserRepository.findUserByEmail(email);
       return {
-        status: HttpStatus.BAD_REQUEST,
-        message: "Email incorrect format",
+        status: user ? HttpStatus.OK : HttpStatus.NOT_FOUND,
+        message: user ? "Email exist" : "Email not found",
       };
-    }
 
-    const user = await UserRepository.findUserByEmail(email);
-    return {
-      status: user ? HttpStatus.OK : HttpStatus.NOT_FOUND,
-      message: user ? "Email exist" : "Email not found",
-    };
+    } catch (error) {
+      console.log("checkEmail code prosess : ", error);
+      throw new ApiError(
+        "Internal Server Error.",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
   },
 
   async resendCodeVerif(req) {
