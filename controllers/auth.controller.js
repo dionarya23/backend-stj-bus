@@ -141,6 +141,7 @@ module.exports = {
 
   async checkEmail(req) {
     const { email } = req.body;
+    console.log("Email : ", email)
 
     if (!isEmail(email)) {
       return {
