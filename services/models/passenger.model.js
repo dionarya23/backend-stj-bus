@@ -24,7 +24,7 @@ const PassengerModel = sequelize.define(
       type: DataTypes.INTEGER,
     },
     seat_passenger: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING(10),
     },
   },
   {

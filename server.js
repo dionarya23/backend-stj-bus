@@ -22,6 +22,7 @@ const CHECKOUT = require("./routes/checkout");
 const USER = require("./routes/user");
 const ORDER = require("./routes/order");
 const BIS = require("./routes/bis");
+const SCHEDULE = require("./routes/schedule");
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -34,6 +35,7 @@ app.use("/api/v1/user", USER);
 app.use("/api/v1/checkout", CHECKOUT);
 app.use("/api/v1/order", ORDER);
 app.use("/api/v1/bis", BIS);
+app.use("/api/v1/schedule", SCHEDULE);
 
 app.listen(process.env.PORT || 3000, () =>
   console.log(`App running on port ${process.env.PORT || 3000}`)

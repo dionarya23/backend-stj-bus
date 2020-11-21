@@ -5,10 +5,6 @@ const PassengerModel = require("./models/passenger.model");
 const OrderModel = require("./models/order.model");
 const TransactionModel = require("./models/transaction.model")
 
-BisModel.hasOne(ScheduleBisModel, {
-  as: "bis_schedule"
-});
-
 ScheduleBisModel.belongsTo(BisModel, {
   as: "bis",
   constraints: false,

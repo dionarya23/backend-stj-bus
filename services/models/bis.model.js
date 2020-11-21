@@ -11,7 +11,7 @@ const BisModel = sequelize.define(
       autoIncrement: true,
     },
     type_bis: {
-      type: DataTypes.ENUM("Eksekutif 32", "Patas AC", "Patas AC + Toilet"),
+      type: DataTypes.ENUM("Eksekutif 32", "Patas AC", "Patas AC Toilet"),
       defaultValue: "Eksekutif 32",
     },
     plat_nomor: {
