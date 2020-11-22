@@ -787,6 +787,11 @@ node-addon-api@^3.0.0:
   resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-3.0.2.tgz#04bc7b83fd845ba785bb6eae25bc857e1ef75681"
   integrity sha512-+D4s2HCnxPd5PjjI0STKwncjXTUKKqm74MDMz9OPXavjsGmjkvwgLtA5yoxJUdmpj52+2u+RrXgPipahKczMKg==
 
+node-fpe@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/node-fpe/-/node-fpe-2.0.0.tgz#aa68d507227fe98b44fa1696ff3cb09ab9eaaedb"
+  integrity sha512-XVGcE4q5yCCR8P+f4XdJSHDrC1TBP1KWMvW6EdDKiRuOpcwzkPxP2hJ0ZBBYXr6HpDxuGJY00s9Ghy1q1iX9JQ==
+
 node-pre-gyp@0.15.0:
   version "0.15.0"
   resolved "https://registry.yarnpkg.com/node-pre-gyp/-/node-pre-gyp-0.15.0.tgz#c2fc383276b74c7ffa842925241553e8b40f1087"
@@ -875,6 +880,13 @@ once@^1.3.0:
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
   dependencies:
     wrappy "1"
+
+order-id@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/order-id/-/order-id-2.1.0.tgz#4fb5bf7f6b08803cb89a3f9fb67329dca4185914"
+  integrity sha512-8zPwBOUaKtj4tAaYpo0zRrURDHo2QmAcrA3D7jToZ2cS7NKLTXG437zFaQuT8Z1Qm5sfHQDYzC06FsATOISfrw==
+  dependencies:
+    node-fpe "^2.0.0"
 
 os-homedir@^1.0.0:
   version "1.0.2"

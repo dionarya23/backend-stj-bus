@@ -23,6 +23,12 @@ OrderModel.hasOne(ScheduleBisModel, {
   foreignKey: "schedule_bis_id"
 })
 
+OrderModel.hasMany(PassengerModel, {
+  as: "people_order",
+  constraints: false,
+  foreignKey: "order_id"
+})
+
 UserModel.hasMany(OrderModel, {
   as: "order_bis",
   constraints: false,

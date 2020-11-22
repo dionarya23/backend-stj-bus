@@ -1,13 +1,12 @@
-const { Order } = require("../services/table")
+const { Orders } = require("../services/table")
 
 
 module.exports = {
-    async createOrder(order) {
+    async createOrder(orderData) {
         try {
 
-            const order = await Order.create(order)
-            return order
-            
+        await Orders.create(orderData)
+
         }catch(err) {
             console.log("error orderData : ", err)
             throw "something error"

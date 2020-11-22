@@ -26,6 +26,13 @@ const PassengerModel = sequelize.define(
     seat_passenger: {
       type: DataTypes.STRING(10),
     },
+    order_id : {
+      type: DataTypes.STRING(100),
+      references: {
+        model: "orders",
+        key: "order_id"
+      }
+    }
   },
   {
     timestamps: true,
