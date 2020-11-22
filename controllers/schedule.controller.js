@@ -14,7 +14,6 @@ module.exports = {
         hour_arrived,
       } = req.query;
 
-
       var new_hour_departure = [];
       var new_hour_arrived = [];
       if (typeof hour_departure !== undefined) {
@@ -46,7 +45,6 @@ module.exports = {
         message: "success get schedule",
         data: bisSchedule,
       };
-      
     } catch (err) {
       console.log("searchSchedule : ", err);
       throw new ApiError(

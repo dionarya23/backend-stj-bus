@@ -1,7 +1,6 @@
 const ApiError = require("../helpers/ApiError");
-const bisRepository = require("../repositories/bis.repositories");
+const bisRepository = require("../repositories/bis.repository");
 const HttpStatus = require("http-status-codes");
-const { getAllBis } = require("../repositories/bis.repositories");
 
 module.exports = {
   async createNewBis(req) {

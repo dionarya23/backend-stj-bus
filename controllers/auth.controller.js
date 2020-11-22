@@ -154,8 +154,8 @@ module.exports = {
   
       const user = await UserRepository.findUserByEmail(email);
       return {
-        status: user ? HttpStatus.OK : HttpStatus.NO_CONTENT,
-        message: user ? "Email exist" : "Email not found",
+        status: user ? HttpStatus.OK : HttpStatus.CREATED,
+        message: user ? "Email exist" : "Email not exist",
       };
 
     } catch (error) {
