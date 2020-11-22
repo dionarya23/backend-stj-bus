@@ -4,8 +4,7 @@ const { Op, fn, col } = require("sequelize");
 module.exports = {
   async searchSchedule(params) {
     try {
-   
-      let whereCondition = {
+      var whereCondition = {
         destination: {
           [Op.eq]: params.destination,
         },
@@ -15,17 +14,36 @@ module.exports = {
         date_departure: {
           [Op.eq]: params.date_departure,
         },
+      };
+
+      if (params.new_hour_departure.length != 0) {
+        let hour_departure_condition = {
+          [Op.or]: [],
+        };
+
+        params.new_hour_departure.map((e) => {
+          hour_departure_condition[Op.or].push({
+            [Op.between]: e,
+          });
+        });
+
+        whereCondition.hour_departure = hour_departure_condition;
       }
 
-      // if (params.hour_departure) {
-      //   // hour_departure: {
-      //   //   [Op.or]: [
-      //   //     {
-      //   //       [Op.between]: [],
-      //   //     },
-      //   //   ],
-      //   // },
-      // }
+      if (params.new_hour_arrived.length != 0) {
+
+        let hour_arrived_condition = {
+          [Op.or]: [],
+        };
+
+        params.hour_arrived_condition.map((e) => {
+          hour_arrived_condition[Op.or].push({
+            [Op.between]: e,
+          });
+        });
+
+        whereCondition.hour_arrived = hour_arrived_condition;
+      }
 
       const bis_schedule = await ScheduleBis.findAll({
         attributes: [
@@ -34,8 +52,8 @@ module.exports = {
           "departure",
           "destination",
           "date_departure",
-          [fn("date_format", col("hour_departure"), "%h:%i"), "hour_departure"],
-          [fn("date_format", col("hour_arrived"), "%h:%i"), "hour_arrived"],
+          [fn("date_format", col("hour_departure"), "%H:%i"), "hour_departure"],
+          [fn("date_format", col("hour_arrived"), "%H:%i"), "hour_arrived"],
           "price",
           "total_passenger",
         ],
