@@ -27,10 +27,10 @@ const ScheduleBisModel = sequelize.define(
       type: DataTypes.DATEONLY,
     },
     hour_departure: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
     },
     hour_arrived: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
     },
     price: {
       type: DataTypes.INTEGER,

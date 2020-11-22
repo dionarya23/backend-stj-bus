@@ -1,12 +1,32 @@
 const { ScheduleBis, Bis, Passengers } = require("../services/table");
 const { Op, fn, col } = require("sequelize");
-const moment = require("moment")
-const { tz } = require("moment-timezone")
 
 module.exports = {
   async searchSchedule(params) {
     try {
-      console.log([tz(moment("00:00:00", "h:mm:ss").format(), "Asia/Jakarta")])
+   
+      let whereCondition = {
+        destination: {
+          [Op.eq]: params.destination,
+        },
+        departure: {
+          [Op.eq]: params.departure,
+        },
+        date_departure: {
+          [Op.eq]: params.date_departure,
+        },
+      }
+
+      // if (params.hour_departure) {
+      //   // hour_departure: {
+      //   //   [Op.or]: [
+      //   //     {
+      //   //       [Op.between]: [],
+      //   //     },
+      //   //   ],
+      //   // },
+      // }
+
       const bis_schedule = await ScheduleBis.findAll({
         attributes: [
           "schedule_bis_id",
@@ -19,27 +39,7 @@ module.exports = {
           "price",
           "total_passenger",
         ],
-        where: {
-          destination: {
-            [Op.eq]: params.destination,
-          },
-          departure: {
-            [Op.eq]: params.departure,
-          },
-          date_departure: {
-            [Op.eq]: params.date_departure,
-          },
-          hour_departure: {
-            [Op.eq] : "2020-11-21 12:00:00"
-          }
-        },
-        // {
-        //   [Op.or]: [
-        //     {
-        //       [Op.between]: ["00:00", "06:00"],
-        //     },
-        //   ],
-        // },
+        where: whereCondition,
         include: [
           {
             model: Bis,
