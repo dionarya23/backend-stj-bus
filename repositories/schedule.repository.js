@@ -36,7 +36,7 @@ module.exports = {
           [Op.or]: [],
         };
 
-        params.hour_arrived_condition.map((e) => {
+        params.new_hour_arrived.map((e) => {
           hour_arrived_condition[Op.or].push({
             [Op.between]: e,
           });
