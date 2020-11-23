@@ -10,28 +10,32 @@ const OrderModel = sequelize.define(
       primaryKey: true,
     },
     schedule_bis_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "schedule_bis",
-          key: "schedule_bis_id",
-        },
+      type: DataTypes.INTEGER,
+      references: {
+        model: "schedule_bis",
+        key: "schedule_bis_id",
       },
-      user_id: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "users",
-          key: "user_id",
-        },
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "users",
+        key: "user_id",
       },
-      total_price: {
-          type: DataTypes.INTEGER,
-      },
-      email_order: {
-          type: DataTypes.STRING(100),
-      },
-      phone_number_order: {
-          type: DataTypes.STRING(15),
-      },
+    },
+    total_price: {
+      type: DataTypes.INTEGER,
+    },
+    email_order: {
+      type: DataTypes.STRING(100),
+    },
+    phone_number_order: {
+      type: DataTypes.STRING(15),
+    },
+    paid: {
+      type: DataTypes.ENUM("terbayar", "belum_terbayar"),
+      defaultValue: "belum_terbayar",
+    },
   },
   {
     timestamps: true,
@@ -39,4 +43,4 @@ const OrderModel = sequelize.define(
   }
 );
 
-module.exports = OrderModel
+module.exports = OrderModel;

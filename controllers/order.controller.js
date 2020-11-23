@@ -38,7 +38,6 @@ module.exports = {
 
       passengers.map((e) => {
         e.order_id = orderData.order_id;
-        e.schedule_bis_id = schedule_bis_id;
       });
 
       await passengerRepository.createPassengers(passengers);

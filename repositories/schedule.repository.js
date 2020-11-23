@@ -1,4 +1,4 @@
-const { ScheduleBis, Bis, Passengers } = require("../services/table");
+const { ScheduleBis, Bis, Orders, Passengers } = require("../services/table");
 const { Op, fn, col } = require("sequelize");
 
 module.exports = {
@@ -31,12 +31,11 @@ module.exports = {
       }
 
       if (params.new_hour_arrived.length != 0) {
-
         let hour_arrived_condition = {
           [Op.or]: [],
         };
 
-        params.hour_arrived_condition.map((e) => {
+        params.new_hour_arrived.map((e) => {
           hour_arrived_condition[Op.or].push({
             [Op.between]: e,
           });
@@ -70,13 +69,20 @@ module.exports = {
             attributes: ["type_bis", "plat_nomor"],
           },
           {
-            model: Passengers,
-            as: "passengers",
-            attributes: [
-              "passenger_id",
-              "passenger_name",
-              "passenger_age",
-              "seat_passenger",
+            model: Orders,
+            as: "schedule_order",
+            attributes: ["order_id", "paid"],
+            required: false,
+            include: [
+              {
+                model: Passengers,
+                as: "people_order",
+                attributes: [
+                  "passenger_name",
+                  "passenger_age",
+                  "seat_passenger",
+                ],
+              },
             ],
           },
         ],
