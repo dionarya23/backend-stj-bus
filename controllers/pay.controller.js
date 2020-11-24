@@ -1,7 +1,9 @@
 const midtransCoreApi = require("../config/midtrans");
+
+const orderRepositories = require("../repositories/order.repository");
+
 const HttpStatus = require("http-status-codes");
 const ApiError = require("../helpers/ApiError");
-const orderRepositories = require("../repositories/order.repository");
 module.exports = {
   async bankTransfer(req) {
     try {

@@ -5,7 +5,7 @@ const payController = require("../controllers/pay.controller");
 const router = baseRoute();
 
 router.post(
-  "/bank-transfer",
+  "/",
   baseController((req) => payController.bankTransfer(req))
 );
 

@@ -4,9 +4,8 @@ const sequelize = require("../../config/database");
 
 const TransactionModel = sequelize.define("transactions", {
   transaction_id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING("200"),
     primaryKey: true,
-    autoIncrement: true,
   },
   order_id: {
     type: DataTypes.STRING(100),

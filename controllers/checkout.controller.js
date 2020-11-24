@@ -7,10 +7,9 @@ const orderIdGenerator = require("order-id")(process.env.ORDER_ID_SECRET);
 
 const passengerRepository = require("../repositories/passenger.repository");
 const orderRepository = require("../repositories/order.repository");
-const transactionRepository = require("../repositories/transaction.repository");
 
 module.exports = {
-  async createOrder(req) {
+  async createCheckout(req) {
     try {
       let {
         schedule_bis_id,
@@ -40,27 +39,19 @@ module.exports = {
         phone_number_order,
       };
 
-        await orderRepository.createOrder(orderData);
-        passengers.map((e) => {
-          e.order_id = orderData.order_id;
-        });
-        await passengerRepository.createPassengers(passengers);
+      //   await orderRepository.createOrder(orderData);
+      //   passengers.map((e) => {
+      //     e.order_id = orderData.order_id;
+      //   });
+      //   await passengerRepository.createPassengers(passengers);
 
       //payment
-      let customerName = passengers[0].passenger_name.split(" ")
-
-      let parameterPayment = {
+      var parameterPayment = {
         payment_type: "",
         transaction_details: {
           order_id: orderData.order_id,
           gross_amount: orderData.total_price,
         },
-        customer_details: {
-          first_name: customerName[0],
-          last_name: customerName.length >= 2 ? customerName[1] : "",
-          email: email_order,
-          phone: phone_number_order,
-        }
       };
 
       if (
@@ -87,23 +78,16 @@ module.exports = {
             message: "Pembayaran Sudiro Tungga Jaya",
           });
       }
-
       console.log("Data parameter Payment ", parameterPayment);
-      let responseMidtrans = await midtransCoreApi.charge(parameterPayment);
+      //   const responseMidtrans = await midtransCoreApi.charge(parameterPayment);
 
-      await transactionRepository.createTransaction({
-        transaction_id: responseMidtrans.transaction_id,
-        order_id: orderData.order_id,
-        transaction_status: responseMidtrans.transaction_status,
-      });
-
-      responseMidtrans.status = parseInt(responseMidtrans.status_code)
-      responseMidtrans.message = responseMidtrans.status_message
-      delete responseMidtrans.status_code
-      delete responseMidtrans.status_message
-
-      return responseMidtrans
-
+      return {
+        status: HttpStatus.CREATED,
+        message: "success create order",
+        // data: {
+        //   orderId: orderData.order_id,
+        // },
+      };
     } catch (err) {
       console.log("error createOrder : ", err);
       throw new ApiError(
