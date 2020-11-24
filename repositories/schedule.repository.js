@@ -1,15 +1,21 @@
-const { ScheduleBis, Bis, Orders, Passengers } = require("../services/table");
+const {
+  ScheduleBis,
+  Bis,
+  Orders,
+  Passengers,
+  Place,
+} = require("../services/table");
 const { Op, fn, col } = require("sequelize");
 
 module.exports = {
   async searchSchedule(params) {
     try {
       var whereCondition = {
-        destination: {
-          [Op.eq]: params.destination,
+        destination_id: {
+          [Op.eq]: params.destination_id,
         },
-        departure: {
-          [Op.eq]: params.departure,
+        departure_id: {
+          [Op.eq]: params.departure_id,
         },
         date_departure: {
           [Op.eq]: params.date_departure,
@@ -48,8 +54,6 @@ module.exports = {
         attributes: [
           "schedule_bis_id",
           "bis_id",
-          "departure",
-          "destination",
           "date_departure",
           [fn("date_format", col("hour_departure"), "%H:%i"), "hour_departure"],
           [fn("date_format", col("hour_arrived"), "%H:%i"), "hour_arrived"],
@@ -58,6 +62,16 @@ module.exports = {
         ],
         where: whereCondition,
         include: [
+          {
+            model: Place,
+            as: "destination",
+            attributes: ["place_id", "city_name", "place_name"],
+          },
+          {
+            model: Place,
+            as: "departure",
+            attributes: ["place_id", "city_name", "place_name"],
+          },
           {
             model: Bis,
             as: "bis",

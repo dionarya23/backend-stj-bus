@@ -6,8 +6,8 @@ module.exports = {
   async searchSchedule(req) {
     try {
       let {
-        departure,
-        destination,
+        departure_id,
+        destination_id,
         date_departure,
         type_bis,
         hour_departure,
@@ -32,8 +32,8 @@ module.exports = {
 
       type_bis = type_bis.split(",");
       const bisSchedule = await scheduleRepository.searchSchedule({
-        departure,
-        destination,
+        departure_id,
+        destination_id,
         date_departure,
         type_bis,
         new_hour_departure,

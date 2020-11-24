@@ -17,11 +17,19 @@ const ScheduleBisModel = sequelize.define(
         key: "bis_id",
       },
     },
-    departure: {
-      type: DataTypes.STRING(100),
+    departure_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "place",
+        key: "place_id",
+      },
     },
-    destination: {
-      type: DataTypes.STRING(100),
+    destination_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "place",
+        key: "place_id",
+      },
     },
     date_departure: {
       type: DataTypes.DATEONLY,
@@ -36,7 +44,7 @@ const ScheduleBisModel = sequelize.define(
       type: DataTypes.INTEGER,
     },
     total_passenger: {
-        type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,
     },
   },
   {

@@ -18,11 +18,12 @@ const cors = require("cors");
  * Routes
  */
 const INDEX = require("./routes/index");
-const CHECKOUT = require("./routes/checkout");
+// const CHECKOUT = require("./routes/checkout");
 const USER = require("./routes/user");
 const ORDER = require("./routes/order");
 const BIS = require("./routes/bis");
 const SCHEDULE = require("./routes/schedule");
+const PAY = require("./routes/pay");
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -32,10 +33,11 @@ app.use(json());
 
 app.use("/", INDEX);
 app.use("/api/v1/user", USER);
-app.use("/api/v1/checkout", CHECKOUT);
+// app.use("/api/v1/checkout", CHECKOUT);
 app.use("/api/v1/order", ORDER);
 app.use("/api/v1/bis", BIS);
 app.use("/api/v1/schedule", SCHEDULE);
+app.use("/api/v1/pay", PAY);
 
 app.listen(process.env.PORT || 3000, () =>
   console.log(`App running on port ${process.env.PORT || 3000}`)
