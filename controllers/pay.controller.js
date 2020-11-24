@@ -20,11 +20,11 @@ module.exports = {
             order_id: order.order_id,
             gross_amount: order.total_price
         },
-        custom_expiry : {
-            order_time: "2016-12-07 11:54:12 +0700",
-            expiry_duration: 1,
-            unit: "minute"
-        }
+        // custom_expiry : {
+        //     order_time: "2016-12-07 11:54:12 +0700",
+        //     expiry_duration: 1,
+        //     unit: "minute"
+        // }
       };
 
       if (bank == "bca" || bank == "bni" || bank == "bri") {
