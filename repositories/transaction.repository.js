@@ -11,4 +11,17 @@ module.exports = {
       throw "Something error";
     }
   },
+
+  async updateTransactionById(transaction_id, data) {
+    try {
+
+      await Transaction.update(data, {
+        where : transaction_id
+      })
+
+    }catch(err) {
+      console.log("Error updateTransactionById : ", err)
+      throw "Something error"
+    }
+  }
 };

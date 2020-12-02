@@ -19,4 +19,15 @@ module.exports = {
       throw "something error";
     }
   },
+
+  async updateOrderById(order_id, orderData) {
+      try {
+        await Orders.update(orderData, {
+          where: order_id
+        })
+      }catch(err) {
+        console.log("error updateOrderById : ", err)
+        throw "something error";
+      } 
+  }
 };

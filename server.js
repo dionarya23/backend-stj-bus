@@ -23,7 +23,8 @@ const USER = require("./routes/user");
 const ORDER = require("./routes/order");
 const BIS = require("./routes/bis");
 const SCHEDULE = require("./routes/schedule");
-const PAYMENT_TYPE = require("./routes/payment_type")
+const PAYMENT_TYPE = require("./routes/payment_type");
+const WEBHOOK = require("./routes/webhook");
 // const PAY = require("./routes/pay");
 
 app.use(cors());
@@ -38,9 +39,9 @@ app.use("/api/v1/user", USER);
 app.use("/api/v1/order", ORDER);
 app.use("/api/v1/bis", BIS);
 app.use("/api/v1/schedule", SCHEDULE);
-app.use("/api/v1/payment-type", PAYMENT_TYPE)
+app.use("/api/v1/payment-type", PAYMENT_TYPE);
+app.use("/api/v1/webhook", WEBHOOK);
 // app.use("/api/v1/pay", PAY);
-
 
 app.listen(process.env.PORT || 3000, () =>
   console.log(`App running on port ${process.env.PORT || 3000}`)
