@@ -4,9 +4,9 @@ const HttpStatus = require("http-status-codes");
 const TransactionRepository = require("../repositories/transaction.repository");
 const OrderRepository = require("../repositories/order.repository");
 
-module.exports = {
-  //   async getResponse(req) {},
+const db = require("../config/firebase").database();
 
+module.exports = {
   async postResponse(req) {
     try {
       let {
@@ -16,16 +16,18 @@ module.exports = {
         payment_type,
       } = req.body;
 
+      db.colletion("midtrans").add(req.body);
+
       if (transaction_status === "deny") {
         return {
           status: HttpStatus.INTERNAL_SERVER_ERROR,
           message: "payment deny",
         };
-      }else if (transaction_status === "pending") {
-          return {
-              status: HttpStatus.OK,
-              message: "transaction created"
-          }
+      } else if (transaction_status === "pending") {
+        return {
+          status: HttpStatus.OK,
+          message: "transaction created",
+        };
       }
 
       if (payment_type === "gopay" || payment_type === "akulaku") {
@@ -47,6 +49,23 @@ module.exports = {
       };
     } catch (err) {
       console.log("post Response : ", err);
+      throw new ApiError(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
+  async getResponse(req) {
+    try {
+      console.log(req);
+
+      return {
+        status: HttpStatus.OK,
+        message: "success bro",
+      };
+    } catch (Err) {
+      console.log("post Response : ", Err);
       throw new ApiError(
         "Internal Server Error",
         HttpStatus.INTERNAL_SERVER_ERROR

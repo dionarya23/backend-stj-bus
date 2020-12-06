@@ -9,4 +9,9 @@ router.post(
   baseController((req) => webhookController.postResponse(req))
 );
 
+router.get(
+  "/",
+  baseController((req) => webhookController.getResponse(req))
+);
+
 module.exports = router;
