@@ -10,5 +10,14 @@ module.exports = {
             console.log("error in searchSchedule repository : ", Err);
             throw "Something error";
         }
+    },
+
+    async createPlace(dataPlace) {
+        try {
+            await PlaceModel.create(dataPlace)
+        }catch(err) {
+            console.log("error in searchSchedule repository : ", Err);
+            throw "Something error";
+        } 
     }
 }

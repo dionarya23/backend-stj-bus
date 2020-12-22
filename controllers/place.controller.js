@@ -19,4 +19,22 @@ module.exports = {
       );
     }
   },
+
+  async createPlace(req) {
+    try {
+      const { city_name, place_name, province } = req.body;
+
+      await PlaceRepository.createPlace({ city_name, place_name, province });
+      return {
+        status: HttpStatus.CREATED,
+        message: "success create new place",
+      };
+    } catch (err) {
+      console.log("createPlace : ", err);
+      throw new ApiError(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
 };
