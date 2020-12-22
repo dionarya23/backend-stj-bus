@@ -14,9 +14,9 @@ module.exports = {
 
     async createPlace(dataPlace) {
         try {
-            await PlaceModel.create(dataPlace)
+            await Place.create(dataPlace)
         }catch(err) {
-            console.log("error in searchSchedule repository : ", Err);
+            console.log("error in searchSchedule repository : ", err);
             throw "Something error";
         } 
     }
