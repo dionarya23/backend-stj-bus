@@ -26,6 +26,7 @@ const SCHEDULE = require("./routes/schedule");
 const PAYMENT_TYPE = require("./routes/payment_type");
 const WEBHOOK = require("./routes/webhook");
 // const PAY = require("./routes/pay");
+const PLACE = require("./routes/place")
 
 app.use(cors());
 app.use(morgan("dev"));
@@ -38,9 +39,10 @@ app.use("/api/v1/user", USER);
 // app.use("/api/v1/checkout", CHECKOUT);
 app.use("/api/v1/order", ORDER);
 app.use("/api/v1/bis", BIS);
-app.use("/api/v1/schedule", SCHEDULE);
+// app.use("/api/v1/schedule", SCHEDULE);
 app.use("/api/v1/payment-type", PAYMENT_TYPE);
 app.use("/api/v1/webhook", WEBHOOK);
+app.use("/api/v1/places", PLACE);
 // app.use("/api/v1/pay", PAY);
 
 app.listen(process.env.PORT || 3000, () =>

@@ -15,6 +15,9 @@ const PlaceModel = sequelize.define(
     place_name: {
       type: DataTypes.STRING(150),
     },
+    province: {
+      type: DataTypes.STRING(100)
+    }
   },
   {
     timestamps: true,

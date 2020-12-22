@@ -17,35 +17,9 @@ const ScheduleBisModel = sequelize.define(
         key: "bis_id",
       },
     },
-    departure_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "place",
-        key: "place_id",
-      },
-    },
-    destination_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "place",
-        key: "place_id",
-      },
-    },
-    date_departure: {
-      type: DataTypes.DATEONLY,
-    },
-    hour_departure: {
-      type: DataTypes.TIME,
-    },
-    hour_arrived: {
-      type: DataTypes.TIME,
-    },
-    price: {
-      type: DataTypes.INTEGER,
-    },
-    total_passenger: {
-      type: DataTypes.INTEGER,
-    },
+    rute: {
+      type: DataTypes.STRING
+    }
   },
   {
     timestamps: true,

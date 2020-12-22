@@ -5,6 +5,7 @@ const PassengerModel = require("./models/passenger.model");
 const OrderModel = require("./models/order.model");
 const TransactionModel = require("./models/transaction.model");
 const PlaceModel = require("./models/place.mode");
+const RouteLocationModel = require("./models/route_location.model");
 
 ScheduleBisModel.belongsTo(BisModel, {
   as: "bis",
@@ -16,18 +17,6 @@ ScheduleBisModel.hasMany(OrderModel, {
   as: "schedule_order",
   constraints: false,
   foreignKey: "schedule_bis_id",
-});
-
-ScheduleBisModel.belongsTo(PlaceModel, {
-  as: "destination",
-  constraints: false,
-  foreignKey: "destination_id",
-});
-
-ScheduleBisModel.belongsTo(PlaceModel, {
-  as: "departure",
-  constraints: false,
-  foreignKey: "departure_id",
 });
 
 OrderModel.hasMany(PassengerModel, {
@@ -57,5 +46,6 @@ module.exports = {
   Passengers: PassengerModel,
   Orders: OrderModel,
   Transaction: TransactionModel,
-  Place: PlaceModel
+  Place: PlaceModel,
+  RouteLocation : RouteLocationModel
 };
