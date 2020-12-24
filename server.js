@@ -39,7 +39,7 @@ app.use("/api/v1/user", USER);
 // app.use("/api/v1/checkout", CHECKOUT);
 app.use("/api/v1/order", ORDER);
 app.use("/api/v1/bis", BIS);
-// app.use("/api/v1/schedule", SCHEDULE);
+app.use("/api/v1/schedule", SCHEDULE);
 app.use("/api/v1/payment-type", PAYMENT_TYPE);
 app.use("/api/v1/webhook", WEBHOOK);
 app.use("/api/v1/place", PLACE);
