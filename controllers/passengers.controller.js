@@ -18,7 +18,7 @@ module.exports = {
       // 5A 5B    10A 10B
       let kursi = [];
 
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
         for (let z = 0; z < 2; z++) {
             const no_kursi = z === 0 ? `${i + 1}A` : `${i + 1}B`;
               kursi.push({
