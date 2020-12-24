@@ -5,7 +5,7 @@ const {
   Passengers,
   Place,
 } = require("../services/table");
-const { Op, fn, col, QueryTypes  } = require("sequelize");
+const { QueryTypes  } = require("sequelize");
 
 const sequelize = require("../config/database")
 
