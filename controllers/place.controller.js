@@ -37,4 +37,22 @@ module.exports = {
       );
     }
   },
+
+  async updatePlace(req) {
+    try {
+      const { place_id } = req.params;
+
+      await PlaceRepository.updatePlace({ place_id }, req.body);
+      return {
+        status: HttpStatus.OK,
+        message: "success update place",
+      };
+    } catch (err) {
+      console.log("updatePlace : ", err);
+      throw new ApiError(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
 };

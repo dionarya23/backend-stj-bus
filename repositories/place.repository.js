@@ -19,5 +19,18 @@ module.exports = {
             console.log("error in searchSchedule repository : ", err);
             throw "Something error";
         } 
+    },
+
+    async updatePlace(place_id, data) {
+        try {
+
+            await Place.update(data, {
+                where: place_id
+            })
+
+        }catch(err) {
+            console.log("error in updatePlace repository : ", err)
+            throw "Somthing Error"
+        }
     }
 }
