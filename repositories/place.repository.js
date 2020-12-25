@@ -4,7 +4,14 @@ const Place = require("../services/table").Place
 module.exports = {
     async getPlaceList() {
         try {
-            const placeses = await Place.findAll();
+            const placeses = await Place.findAll({
+                attributes: [
+                    "place_id",
+                    "city_name",
+                    "province",
+                    "place_name"
+                ]
+            });
             return placeses;
         }catch(err) {
             console.log("error in searchSchedule repository : ", Err);
