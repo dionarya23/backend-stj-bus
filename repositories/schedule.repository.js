@@ -8,7 +8,8 @@ const {
 } = require("../services/table");
 const { QueryTypes  } = require("sequelize");
 
-const sequelize = require("../config/database")
+const sequelize = require("../config/database");
+const ScheduleBisModel = require("../services/models/schedule_bis.model");
 
 module.exports = {
 
@@ -99,6 +100,33 @@ module.exports = {
     }catch(err) {
       console.log("error in getListSchedule : ", err)
       throw "Something error";
+    }
+  },
+
+
+  async getScheduleById(schedule_bis_id) {
+    try {
+      
+     const schedule = await ScheduleBisModel.findByPk(schedule_bis_id);
+     return schedule
+
+    }catch(err) {
+      console.log("error in getScheduleById : ", err);
+      throw "Something Error"
+    }
+  },
+
+
+  async updateScheduleById(schedule_bis_id, dataSchedule) {
+    try {
+      
+      await ScheduleBisModel.update(dataSchedule, {
+        where: schedule_bis_id
+      })
+
+    }catch(err) {
+      console.log("error in updateScheduleById : ", err);
+      throw "Something Error"
     }
   }
   // async searchSchedule(params) {

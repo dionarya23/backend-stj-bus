@@ -6,6 +6,7 @@ const OrderModel = require("./models/order.model");
 const TransactionModel = require("./models/transaction.model");
 const PlaceModel = require("./models/place.mode");
 const RouteLocationModel = require("./models/route_location.model");
+const DriverBusModel = require("./models/driver_bus.model")
 
 ScheduleBisModel.belongsTo(BisModel, {
   as: "bis",
@@ -59,5 +60,6 @@ module.exports = {
   Orders: OrderModel,
   Transaction: TransactionModel,
   Place: PlaceModel,
-  RouteLocation : RouteLocationModel
+  RouteLocation : RouteLocationModel,
+  DriverBus: DriverBusModel,
 };
