@@ -1,6 +1,7 @@
 const {
   ScheduleBis,
   Bis,
+  RouteLocation,
   Orders,
   Passengers,
   Place,
@@ -61,6 +62,42 @@ module.exports = {
 
     }catch(err) {
       console.log("error in searchSchedule repository : ", err);
+      throw "Something error";
+    }
+  },
+
+  async getListSchedule() {
+    try {
+      const lists = await ScheduleBis.findAll({
+        attributes: ["schedule_bis_id", "rute"],
+        include: [
+          {
+            model: Bis,
+            as : "bis",
+            attributes: ["type_bis", "plat_nomor", "seri"]
+          },
+          {
+            model: RouteLocation,
+            as: "rute_perjalanan",
+            attributes: ["jam"],
+            include: [
+              {
+                model: Place,
+                as: "tempat",
+                attributes: ["place_id", "city_name", "place_name", "province"]
+              }
+            ]
+          }
+        ],
+        where: {
+          is_driver_empty: "true"
+        }
+      })
+
+      return lists;
+
+    }catch(err) {
+      console.log("error in getListSchedule : ", err)
       throw "Something error";
     }
   }

@@ -72,4 +72,24 @@ module.exports = {
       );
     }
   },
+
+
+  async listSchedule() {
+    try {
+
+      const listSchedule = await scheduleRepository.getListSchedule();
+
+      return {
+        status  : HttpStatus.OK,
+        message : "success get list schedule",
+        data : listSchedule
+      }
+    }catch(err) {
+      console.log("list Schedule : ", err);
+      throw new ApiError(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      )
+    }
+  }
 };

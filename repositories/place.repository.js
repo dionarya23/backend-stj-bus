@@ -1,6 +1,5 @@
 const Place = require("../services/table").Place
 
-
 module.exports = {
     async getPlaceList() {
         try {

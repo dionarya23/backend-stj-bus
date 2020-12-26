@@ -25,6 +25,18 @@ OrderModel.hasMany(PassengerModel, {
   foreignKey: "order_id",
 });
 
+ScheduleBisModel.hasMany(RouteLocationModel, {
+  as: "rute_perjalanan",
+  constraints: false,
+  foreignKey: "schedule_bis_id"
+})
+
+RouteLocationModel.belongsTo(PlaceModel, {
+  as: "tempat",
+  constraints: false,
+  foreignKey: "place_id"
+})
+
 UserModel.hasMany(OrderModel, {
   as: "order_bis",
   constraints: false,

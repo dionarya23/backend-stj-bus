@@ -19,6 +19,10 @@ const ScheduleBisModel = sequelize.define(
     },
     rute: {
       type: DataTypes.STRING
+    },
+    is_driver_empty: {
+      type: DataTypes.ENUM("true", "false"),
+      defaultValue: "true"
     }
   },
   {

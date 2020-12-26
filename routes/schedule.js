@@ -7,4 +7,6 @@ const router = baseRoute()
 
 router.get("/search", baseController(req => scheduleController.searchSchedule(req)))
 
+router.get("/list", baseController(() => scheduleController.listSchedule()))
+
 module.exports = router
