@@ -28,13 +28,14 @@ module.exports = {
       rd.rute, 
       rd.bis_id,
       bis.type_bis, 
+      rd.schedule_bis_id,
       bis.seri, 
       bis.jumlah_kursi, 
       bis.harga_jatim, 
       bis.harga_jateng,
       (select city_name from place where place_id=${departure_id}) as kota_asal,
-      (select place_name from place where place_id=${departure_id}) as kota_tujuan,
-      (select city_name from place where place_id=${destination_id}) as tempat_asal,
+      (select place_name from place where place_id=${departure_id}) as tempat_asal,
+      (select city_name from place where place_id=${destination_id}) as kota_tujuan,
       (select place_name from place where place_id=${destination_id}) as tempat_tujuan,
       bis.jumlah_kursi - (SELECT count(*) FROM passengers 
       inner join orders on passengers.order_id = orders.order_id
