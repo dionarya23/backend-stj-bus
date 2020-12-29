@@ -28,7 +28,7 @@ module.exports = {
       rd.rute, 
       rd.bis_id,
       bis.type_bis, 
-      rd.schedule_bis_id,
+      rd.schedule_bis_id as schedule_bis_id,
       bis.seri, 
       bis.jumlah_kursi, 
       bis.harga_jatim, 
@@ -37,6 +37,8 @@ module.exports = {
       (select place_name from place where place_id=${departure_id}) as tempat_asal,
       (select city_name from place where place_id=${destination_id}) as kota_tujuan,
       (select place_name from place where place_id=${destination_id}) as tempat_tujuan,
+      (select jam from route_location where place_id=${departure_id} and schedule_bis_id = rd.schedule_bis_id   ) as jam_keberangkatan,
+      (select jam from route_location where place_id=${departure_id} and schedule_bis_id = rd.schedule_bis_id   ) as jam_tiba,
       bis.jumlah_kursi - (SELECT count(*) FROM passengers 
       inner join orders on passengers.order_id = orders.order_id
       inner join schedule_bis on orders.schedule_bis_id = schedule_bis.schedule_bis_id
