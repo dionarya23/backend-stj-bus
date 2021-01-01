@@ -9,5 +9,18 @@ module.exports = {
             console.log("error insertDriverBus : ", err);
             throw "Something Error";
         }
-    }
+    },
+
+    async uploadPhotoDriver({photo_driver, driver_bus_id}) {
+        try {
+            await DriverBus.update({photo_driver}, {
+                where: {
+                    driver_bus_id
+                }
+            })
+        }catch(err) {
+            console.log("error uploadPhotoDriver : ", err);
+            throw "Something error";
+        }
+    }   
 }

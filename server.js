@@ -6,6 +6,8 @@ const morgan = require("morgan");
 const compression = require("compression");
 const app = express();
 const cors = require("cors");
+const fileUpload = require("express-fileupload");
+const path = require("path");
 
 // const db = require('./config/database')
 
@@ -28,8 +30,10 @@ const WEBHOOK = require("./routes/webhook");
 // const PAY = require("./routes/pay");
 const PLACE = require("./routes/place");
 const PASSENGERS = require("./routes/passengers");
+const DRIVER = require("./routes/driver_bus");
 
 app.use(cors());
+app.use(fileUpload());
 app.use(morgan("dev"));
 app.use(compression());
 app.use(urlencoded({ extended: false }));
@@ -45,7 +49,10 @@ app.use("/api/v1/payment-type", PAYMENT_TYPE);
 app.use("/api/v1/webhook", WEBHOOK);
 app.use("/api/v1/place", PLACE);
 app.use("/api/v1/passengers", PASSENGERS);
+app.use("/api/v1/driver", DRIVER);
 // app.use("/api/v1/pay", PAY);
+
+app.use("/assets/images/driver", express.static(path.join(__dirname, "assets/images/driver")))
 
 app.listen(process.env.PORT || 3000, () =>
   console.log(`App running on port ${process.env.PORT || 3000}`)

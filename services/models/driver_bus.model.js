@@ -23,6 +23,15 @@ const DriverBusModel = sequelize.define(
             model: "users",
             key: "user_id"
         }
+    },
+    photo_driver: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: null
+    },
+    konfirmasi_kantor: {
+      type: DataTypes.ENUM("true", "false", "pending"),
+      defaultValue: "pending"
     }
   },
   {
