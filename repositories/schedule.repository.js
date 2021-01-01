@@ -50,6 +50,7 @@ module.exports = {
       inner join bis on rd.bis_id = bis.bis_id
       where l.place_id = ${departure_id} 
       or l.place_id =  ${destination_id}
+      and tgl_berangkat='${date_departure}'
      `;
 
       if (typeof type_bis != "undefined") {
