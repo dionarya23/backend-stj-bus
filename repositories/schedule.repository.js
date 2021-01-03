@@ -6,13 +6,12 @@ const {
   Passengers,
   Place,
 } = require("../services/table");
-const { QueryTypes  } = require("sequelize");
+const { QueryTypes } = require("sequelize");
 
 const sequelize = require("../config/database");
 const ScheduleBisModel = require("../services/models/schedule_bis.model");
 
 module.exports = {
-
   async searchSchedule({
     departure_id,
     destination_id,
@@ -22,7 +21,6 @@ module.exports = {
     // new_hour_arrived,
   }) {
     try {
-
       let rawQuery = `
       select 
       rd.rute, 
@@ -54,18 +52,18 @@ module.exports = {
      `;
 
       if (typeof type_bis != "undefined") {
-        rawQuery += ` and bis.type_bis in ${type_bis}`
+        rawQuery += ` and bis.type_bis in ${type_bis}`;
       }
 
       rawQuery += ` group by rd.rute, 
-      r.schedule_bis_id having count(r.place_id)=2`
+      r.schedule_bis_id having count(r.place_id)=2`;
 
-      const bis_schedule = await sequelize.query(rawQuery, {type: QueryTypes.SELECT})
+      const bis_schedule = await sequelize.query(rawQuery, {
+        type: QueryTypes.SELECT,
+      });
 
-
-      return bis_schedule
-
-    }catch(err) {
+      return bis_schedule;
+    } catch (err) {
       console.log("error in searchSchedule repository : ", err);
       throw "Something error";
     }
@@ -78,8 +76,8 @@ module.exports = {
         include: [
           {
             model: Bis,
-            as : "bis",
-            attributes: ["type_bis", "plat_nomor", "seri"]
+            as: "bis",
+            attributes: ["type_bis", "plat_nomor", "seri"],
           },
           {
             model: RouteLocation,
@@ -89,50 +87,60 @@ module.exports = {
               {
                 model: Place,
                 as: "tempat",
-                attributes: ["place_id", "city_name", "place_name", "province"]
-              }
-            ]
-          }
+                attributes: ["place_id", "city_name", "place_name", "province"],
+              },
+            ],
+          },
         ],
         where: {
-          is_driver_empty: "true"
-        }
-      })
+          is_driver_empty: "true",
+        },
+      });
 
       return lists;
-
-    }catch(err) {
-      console.log("error in getListSchedule : ", err)
+    } catch (err) {
+      console.log("error in getListSchedule : ", err);
       throw "Something error";
     }
   },
 
-
   async getScheduleById(schedule_bis_id) {
     try {
-      
-     const schedule = await ScheduleBisModel.findByPk(schedule_bis_id);
-     return schedule
-
-    }catch(err) {
+      const schedule = await ScheduleBisModel.findByPk(schedule_bis_id);
+      return schedule;
+    } catch (err) {
       console.log("error in getScheduleById : ", err);
-      throw "Something Error"
+      throw "Something Error";
     }
   },
 
-
   async updateScheduleById(schedule_bis_id, dataSchedule) {
     try {
-      
       await ScheduleBisModel.update(dataSchedule, {
-        where: schedule_bis_id
-      })
-
-    }catch(err) {
+        where: schedule_bis_id,
+      });
+    } catch (err) {
       console.log("error in updateScheduleById : ", err);
-      throw "Something Error"
+      throw "Something Error";
     }
-  }
+  },
+
+  async getStatistikMonth(bulan) {
+    try {
+      const schedule = await ScheduleBisModel.findAndCountAll({
+        where: sequelize.where(
+          sequelize.literal('SUBSTRING(tgl_berangkat, 1, 7) as bulan_tahun_berangkat'),
+          bulan
+        ),
+      });
+
+      return schedule;
+    } catch (err) {
+      console.log("error in getStatistikMonth", err);
+      throw "Something Error";
+    }
+  },
+
   // async searchSchedule(params) {
   //   try {
   //     var whereCondition = {
