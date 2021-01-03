@@ -6,7 +6,7 @@ module.exports = {
       await Orders.create(orderData);
     } catch (err) {
       console.log("error orderData : ", err);
-      throw "something error";
+      throw "error createOrder";
     }
   },
 
@@ -16,7 +16,7 @@ module.exports = {
      return order
     } catch (err) {
       console.log("error findOrderById : ", err);
-      throw "something error";
+      throw "error findOrderById";
     }
   },
 
@@ -27,7 +27,7 @@ module.exports = {
         })
       }catch(err) {
         console.log("error updateOrderById : ", err)
-        throw "something error";
+        throw "error updateOrderById";
       } 
   }
 };

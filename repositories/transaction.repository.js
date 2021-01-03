@@ -8,7 +8,7 @@ module.exports = {
         
     } catch (err) {
       console.log("Error createTransaction : ", err);
-      throw "Something error";
+      throw "error createTransaction";
     }
   },
 
@@ -21,7 +21,7 @@ module.exports = {
 
     }catch(err) {
       console.log("Error updateTransactionById : ", err)
-      throw "Something error"
+      throw "error updateTransactionById"
     }
   }
 };

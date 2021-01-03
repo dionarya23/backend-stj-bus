@@ -12,7 +12,7 @@ module.exports = {
       return user;
     } catch (e) {
       console.log("FindUserByEmail error : ", e);
-      throw "Something error";
+      throw "error findUserByEmail";
     }
   },
 
@@ -21,7 +21,7 @@ module.exports = {
       await Users.create(user);
     } catch (e) {
       console.log("createUser error : ", e);
-      throw "Something error";
+      throw "error createUser";
     }
   },
 
@@ -36,7 +36,7 @@ module.exports = {
       return user;
     } catch (e) {
       console.log("findUserbyPhoneNumber error : ", e);
-      throw "Something error";
+      throw "error findUserbyPhoneNumber";
     }
   },
 
@@ -47,7 +47,7 @@ module.exports = {
       });
     } catch (e) {
       console.log("updateUser error : ", e);
-      throw "Something error";
+      throw "error updateUser";
     }
   },
 
@@ -60,7 +60,7 @@ module.exports = {
       return user;
     } catch (e) {
       console.log("findUser error : ", e);
-      throw "Something error";
+      throw "error findUser";
     }
   },
 };

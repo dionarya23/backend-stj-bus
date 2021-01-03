@@ -14,7 +14,7 @@ module.exports = {
             return placeses;
         }catch(err) {
             console.log("error in searchSchedule repository : ", Err);
-            throw "Something error";
+            throw "error getPlaceList";
         }
     },
 
@@ -23,7 +23,7 @@ module.exports = {
             await Place.create(dataPlace)
         }catch(err) {
             console.log("error in searchSchedule repository : ", err);
-            throw "Something error";
+            throw "error createPlace";
         } 
     },
 
@@ -36,7 +36,7 @@ module.exports = {
 
         }catch(err) {
             console.log("error in updatePlace repository : ", err)
-            throw "Somthing Error"
+            throw "Error updatePlace"
         }
     }
 }

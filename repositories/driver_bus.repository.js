@@ -7,7 +7,7 @@ module.exports = {
             await DriverBus.create(driverBusData)
         }catch(err) {
             console.log("error insertDriverBus : ", err);
-            throw "Something Error";
+            throw "Error insertDriverBus";
         }
     },
 
@@ -20,7 +20,7 @@ module.exports = {
             })
         }catch(err) {
             console.log("error uploadPhotoDriver : ", err);
-            throw "Something error";
+            throw "error uploadPhotoDriver";
         }
     }   
 }

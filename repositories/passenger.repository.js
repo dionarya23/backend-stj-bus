@@ -8,7 +8,7 @@ module.exports = {
             await Passengers.bulkCreate(passengers)
         }catch(err) {
             console.log("error createPassengers : ", err)
-            throw "something error"
+            throw "error createPassengers"
         }
     },
 
@@ -27,7 +27,7 @@ module.exports = {
             return listSeat
         }catch(err) {
             console.log("error getListSeat : ", err)
-            throw "something error"
+            throw "error getListSeat"
         }
     }
 }

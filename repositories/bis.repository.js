@@ -5,7 +5,7 @@ module.exports = {
       await Bis.create(bisData);
     } catch (e) {
       console.log("createBis error : ", e);
-      throw "Something error";
+      throw "error createBis";
     }
   },
 
@@ -18,7 +18,7 @@ module.exports = {
       return bisUpdated;
     } catch (e) {
       console.log("update Bis : ", e);
-      throw "Somthing error";
+      throw "error updateBis";
     }
   },
 
@@ -29,7 +29,7 @@ module.exports = {
       return bisUpdated;
     } catch (e) {
       console.log("getBisById : ", e);
-      throw "Somthing error";
+      throw "error getBisById";
     }
   },
 
@@ -40,7 +40,7 @@ module.exports = {
       });
     } catch (e) {
       console.log("deleteBis : ", e);
-      throw "Somthing error";
+      throw "error deleteBis";
     }
   },
 
@@ -50,7 +50,7 @@ module.exports = {
       return bis_;
     } catch (e) {
       console.log("getAllBis : ", e);
-      throw "Somthing error";
+      throw "error getAllBis";
     }
   },
 };
