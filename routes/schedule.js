@@ -4,6 +4,7 @@ const baseController = require("../controllers/base.controller");
 const scheduleController = require("../controllers/schedule.controller");
 
 const driverMidlleware = require("../middleware/authSupir.middleware");
+const adminMiddleware = require("../middleware/authAdmin.middleware")
 
 const router = baseRoute();
 
@@ -25,6 +26,7 @@ router.post(
 
 router.post(
   "/create",
+  adminMiddleware,
   baseController((req) => scheduleController.createScheduleBis(req))
 );
 
