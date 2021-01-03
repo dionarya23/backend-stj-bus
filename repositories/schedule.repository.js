@@ -10,6 +10,7 @@ const { QueryTypes } = require("sequelize");
 
 const sequelize = require("../config/database");
 const ScheduleBisModel = require("../services/models/schedule_bis.model");
+const { createScheduleBis } = require("../controllers/schedule.controller");
 
 module.exports = {
   async searchSchedule({
@@ -65,7 +66,7 @@ module.exports = {
       return bis_schedule;
     } catch (err) {
       console.log("error in searchSchedule repository : ", err);
-      throw "Something error";
+      throw "error searchSchedule";
     }
   },
 
@@ -100,7 +101,7 @@ module.exports = {
       return lists;
     } catch (err) {
       console.log("error in getListSchedule : ", err);
-      throw "Something error";
+      throw "error getListSchedule";
     }
   },
 
@@ -110,7 +111,7 @@ module.exports = {
       return schedule;
     } catch (err) {
       console.log("error in getScheduleById : ", err);
-      throw "Something Error";
+      throw "Error getScheduleById";
     }
   },
 
@@ -121,7 +122,7 @@ module.exports = {
       });
     } catch (err) {
       console.log("error in updateScheduleById : ", err);
-      throw "Something Error";
+      throw "Error updateScheduleById";
     }
   },
 
@@ -137,9 +138,21 @@ module.exports = {
       return schedule;
     } catch (err) {
       console.log("error in getStatistikMonth", err);
-      throw "Something Error";
+      throw "error getStatistikMonth";
     }
   },
+
+  async createScheduleBis(newData) {
+    try {
+
+      const schedule = await ScheduleBisModel.create(newData)
+      return schedule
+
+    }catch(err) {
+      console.log("error in createScheduleBis ", err);
+      throw "Error createScheduleBis"
+    }
+  }
 
   // async searchSchedule(params) {
   //   try {

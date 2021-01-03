@@ -2,6 +2,7 @@ const HttpStatus = require("http-status-codes");
 const ApiError = require("../helpers/ApiError");
 const scheduleRepository = require("../repositories/schedule.repository");
 const driveBusRepository = require("../repositories/driver_bus.repository");
+const routeLocationRepository = require("../repositories/route_location.repository")
 const jwt = require("jsonwebtoken");
 
 module.exports = {
@@ -131,4 +132,39 @@ module.exports = {
       );
     }
   },
+
+
+  async createScheduleBis(req) {
+    try {
+      const {
+        bis_id,
+        rute,
+        tgl_berangkat,
+        route_detail
+      } = req.body
+
+      const schedule_bis_id = await scheduleRepository.createScheduleBis({
+        bis_id,
+        rute,
+        tgl_berangkat
+      });
+
+      route_detail.map(e => {
+        e.schedule_bis_id = schedule_bis_id.schedule_bis_id
+      })
+
+      await routeLocationRepository.createRouteLocation(route_detail)
+      
+      return {
+        status  : HttpStatus.CREATED,
+        message : "success created new schedule",
+      }
+    }catch(err) {
+      console.log("error createScheduleBis : ", err);
+      throw new ApiError(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      )
+    }
+  }
 };
