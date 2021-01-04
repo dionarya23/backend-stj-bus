@@ -49,4 +49,27 @@ module.exports = {
       );
     }
   },
+
+  async checkPassenger(req) {
+    try {
+      const { order_id } = req.params
+      const detailBisdanPenumpang = await PassengerRepository.checkPassengerWithOrderId(order_id);
+      let newStrukturResponse = detailBisdanPenumpang.bisDetail.length > 0 ? 
+        detailBisdanPenumpang.bisDetail[0]
+       : {}
+
+       newStrukturResponse.penumpang = detailBisdanPenumpang.passengerDetail
+      return {
+        status  : HttpStatus.OK,
+        message : "success",
+        data    : newStrukturResponse 
+      }
+
+    }catch(err) {
+      throw new ApiError(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
 };

@@ -36,6 +36,20 @@ const OrderModel = sequelize.define(
       type: DataTypes.ENUM("terbayar", "belum_terbayar"),
       defaultValue: "belum_terbayar",
     },
+    id_departure : {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "place",
+        key : "place_id"
+      },
+      id_destination: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "place",
+          key: "place_id"
+        }
+      },
+    }
   },
   {
     timestamps: true,

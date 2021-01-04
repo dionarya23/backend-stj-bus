@@ -8,7 +8,7 @@ const orderIdGenerator = require("order-id")(process.env.ORDER_ID_SECRET);
 const passengerRepository = require("../repositories/passenger.repository");
 const orderRepository = require("../repositories/order.repository");
 const transactionRepository = require("../repositories/transaction.repository");
-
+const moment = require("moment");
 module.exports = {
   async createOrder(req) {
     try {
@@ -19,6 +19,8 @@ module.exports = {
         email_order,
         phone_number_order,
         payment_type,
+        id_destination,
+        id_departure
       } = req.body;
 
       var user = null;
@@ -38,6 +40,8 @@ module.exports = {
         total_price,
         email_order,
         phone_number_order,
+        id_departure,
+        id_destination,
       };
 
         await orderRepository.createOrder(orderData);
