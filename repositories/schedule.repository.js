@@ -10,7 +10,6 @@ const { QueryTypes } = require("sequelize");
 
 const sequelize = require("../config/database");
 const ScheduleBisModel = require("../services/models/schedule_bis.model");
-const { createScheduleBis } = require("../controllers/schedule.controller");
 
 module.exports = {
   async searchSchedule({
@@ -130,7 +129,7 @@ module.exports = {
     try {
       const schedule = await ScheduleBisModel.findAndCountAll({
         where: sequelize.where(
-          sequelize.literal('SUBSTRING(tgl_berangkat, 1, 7) as bulan_tahun_berangkat'),
+          sequelize.literal('SUBSTRING(tgl_berangkat, 1, 7)'),
           bulan
         ),
       });
@@ -152,7 +151,7 @@ module.exports = {
       console.log("error in createScheduleBis ", err);
       throw "Error createScheduleBis"
     }
-  }
+  },
 
   // async searchSchedule(params) {
   //   try {
