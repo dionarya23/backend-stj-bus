@@ -29,10 +29,10 @@ const PLACE = require("./routes/place");
 const PASSENGERS = require("./routes/passengers");
 const DRIVER = require("./routes/driver_bus");
 const STATISTIK = require("./routes/statistik");
+const SUKUCADANG = require("./routes/suku_cadang");
 // const PAY = require("./routes/pay");
 // const CHECKOUT = require("./routes/checkout");
-
-
+const authAdmin = require('./middleware/authAdmin.middleware')
 
 app.use(cors());
 app.use(fileUpload());
@@ -52,6 +52,7 @@ app.use("/api/v1/place", PLACE);
 app.use("/api/v1/passengers", PASSENGERS);
 app.use("/api/v1/driver", DRIVER);
 app.use("/api/v1/statistik", STATISTIK); 
+app.use("/api/v1/suku-cadang", authAdmin, SUKUCADANG)
 // app.use("/api/v1/pay", PAY);
 // app.use("/api/v1/checkout", CHECKOUT);
 

@@ -6,7 +6,8 @@ const OrderModel = require("./models/order.model");
 const TransactionModel = require("./models/transaction.model");
 const PlaceModel = require("./models/place.mode");
 const RouteLocationModel = require("./models/route_location.model");
-const DriverBusModel = require("./models/driver_bus.model")
+const DriverBusModel = require("./models/driver_bus.model");
+const SukuCadangModel = require("./models/suku_cadang.model");
 
 ScheduleBisModel.belongsTo(BisModel, {
   as: "bis",
@@ -29,14 +30,14 @@ OrderModel.hasMany(PassengerModel, {
 ScheduleBisModel.hasMany(RouteLocationModel, {
   as: "rute_perjalanan",
   constraints: false,
-  foreignKey: "schedule_bis_id"
-})
+  foreignKey: "schedule_bis_id",
+});
 
 RouteLocationModel.belongsTo(PlaceModel, {
   as: "tempat",
   constraints: false,
-  foreignKey: "place_id"
-})
+  foreignKey: "place_id",
+});
 
 UserModel.hasMany(OrderModel, {
   as: "order_bis",
@@ -60,6 +61,7 @@ module.exports = {
   Orders: OrderModel,
   Transaction: TransactionModel,
   Place: PlaceModel,
-  RouteLocation : RouteLocationModel,
+  RouteLocation: RouteLocationModel,
   DriverBus: DriverBusModel,
+  SukuCadang: SukuCadangModel,
 };
