@@ -31,8 +31,10 @@ const DRIVER = require("./routes/driver_bus");
 const STATISTIK = require("./routes/statistik");
 const SUKUCADANG = require("./routes/suku_cadang");
 const BENGKEL = require("./routes/bengkel");
+const STOCKBENGKEL = require("./routes/stock_bengkel");
 // const PAY = require("./routes/pay");
 // const CHECKOUT = require("./routes/checkout");
+
 const authAdmin = require("./middleware/authAdmin.middleware");
 
 app.use(cors());
@@ -55,8 +57,28 @@ app.use("/api/v1/driver", DRIVER);
 app.use("/api/v1/statistik", STATISTIK);
 app.use("/api/v1/suku-cadang", authAdmin, SUKUCADANG);
 app.use("/api/v1/bengkel", BENGKEL);
+app.use("/api/v1/stock-bengkel", STOCKBENGKEL);
 // app.use("/api/v1/pay", PAY);
 // app.use("/api/v1/checkout", CHECKOUT);
+
+// const sukuCadangRepository = require("./repositories/suku_cadang.repository")
+
+// app.get("/try", async (req, res) => {
+//   try {
+//     const sukuCadang = await sukuCadangRepository.getById(3);
+//     res.status(200).json({
+//       status: 200,
+//       message: "success",
+//       data : sukuCadang === null
+//     })
+
+//   }catch(err) {
+//     res.status(500).json({
+//       status: 500,
+//       message: "Internal Server Error"
+//     })
+//   }
+// });
 
 app.use(
   "/assets/images/driver",
