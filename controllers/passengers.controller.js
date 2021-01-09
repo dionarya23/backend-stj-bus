@@ -1,14 +1,22 @@
 const HttpStatus = require("http-status-codes");
 const ApiError = require("../helpers/ApiError");
 const PassengerRepository = require("../repositories/passenger.repository");
+const ScheduleBisRepository = require("../repositories/schedule.repository")
 module.exports = {
   async check(req) {
     try {
-      const { schedule_bis_id, date_departure } = req.body;
+      const { schedule_bis_id } = req.body;
+      const schedule = ScheduleBisRepository.getScheduleById(schedule_bis_id)
+      if (!schedule) {
+        return {
+          status: HttpStatus.NOT_FOUND,
+          message : "schedule_bis_id not found"
+        }
+      }
 
       const passenger = await PassengerRepository.getListSeat({
         schedule_bis_id,
-        date_departure,
+        date_departure: schedule.date_departure,
       });
 
       // 1A 1B    6A 6B
