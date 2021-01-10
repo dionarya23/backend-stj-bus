@@ -6,5 +6,6 @@ const stockBengkelController = require("../controllers/stockBengkel.controller")
 const router = baseRoute();
 
 router.post("/", baseController(req => stockBengkelController.createStock(req)));
+router.put("/", baseController(req => stockBengkelController.updateStockSukuCadang(req)));
 
 module.exports = router

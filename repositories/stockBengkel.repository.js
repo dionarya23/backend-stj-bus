@@ -10,6 +10,19 @@ module.exports = {
     }
   },
 
+  async getStockSukuCadangById(id_stock_bengkel) {
+    try {
+      const stockBengkel = await StockBengkel.findByPk(id_stock_bengkel);
+      return stockBengkel;
+    } catch (err) {
+      console.log(
+        "error at getStockSukuCadangById stockBengkel repository : ",
+        err
+      );
+      throw "error at getStockSukuCadangById stockBengkel repository";
+    }
+  },
+
   async getStockBySukuCadangandBengkel({ id_suku_cadang, id_bengkel }) {
     try {
       const stockBengkel = await StockBengkel.findOne({
@@ -20,6 +33,23 @@ module.exports = {
       });
 
       return stockBengkel;
+    } catch (err) {
+      console.log(
+        "error at getStockBySukuCadangandBengkel stockBengkel repository : ",
+        err
+      );
+      throw "error at getStockBySukuCadangandBengkel stockBengkel repository";
+    }
+  },
+
+  async updateStockBengkel({ id_stock_bengkel, stock_suku_cadang }) {
+    try {
+      await StockBengkel.update(
+        { stock_suku_cadang },
+        {
+          where: { id_stock_bengkel },
+        }
+      );
     } catch (err) {
       console.log(
         "error at getStockBySukuCadangandBengkel stockBengkel repository : ",
