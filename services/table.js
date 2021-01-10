@@ -35,7 +35,7 @@ SukuCadangModel.hasMany(StockBengkelModel, {
   foreignKey: "id_suku_cadang"
 });
 
-BengkelModel.hasOne(UserModel, {
+BengkelModel.belongsTo(UserModel, {
   as: "mekanik",
   constraints: false,
   foreignKey: "user_id"

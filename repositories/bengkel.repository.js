@@ -1,4 +1,3 @@
-const { insertBengkel, deleteBengkel } = require("../controllers/bengkel.controller");
 const { Bengkel, Users } = require("../services/table");
 
 module.exports = {

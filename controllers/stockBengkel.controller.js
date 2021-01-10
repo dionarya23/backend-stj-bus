@@ -5,6 +5,8 @@ const sukuCadangRepository = require("../repositories/suku_cadang.repository");
 const bengkelRepository = require("../repositories/bengkel.repository");
 const stockBengkelRepository = require("../repositories/stockBengkel.repository");
 
+
+
 module.exports = {
   async createStock(req) {
     try {
@@ -68,39 +70,68 @@ module.exports = {
       const { id_stock_bengkel } = req.params;
       const { total_suku_cadang } = req.body;
 
-      const stockBengkel = await stockBengkelRepository.getStockSukuCadangById(id_stock_bengkel);
+      const stockBengkel = await stockBengkelRepository.getStockSukuCadangById(
+        id_stock_bengkel
+      );
       if (!stockBengkel) {
         return {
           status: HttpStatus.NOT_FOUND,
-          message : "stock bengkel not found"
-        }
+          message: "stock bengkel not found",
+        };
       }
 
-      const sukuCadang = await sukuCadangRepository.getById(stockBengkel.id_suku_cadang)
+      const sukuCadang = await sukuCadangRepository.getById(
+        stockBengkel.id_suku_cadang
+      );
 
       if (total_suku_cadang <= sukuCadang.total_suku_cadang) {
         await sukuCadangRepository.updateData(sukuCadang.id_suku_cadang, {
-          total_suku_cadang:
-            sukuCadang.total_suku_cadang - total_suku_cadang,
+          total_suku_cadang: sukuCadang.total_suku_cadang - total_suku_cadang,
         });
 
-        await stockBengkelRepository.updateStockBengkel({id_stock_bengkel, total_suku_cadang})     
+        await stockBengkelRepository.updateStockBengkel({
+          id_stock_bengkel,
+          total_suku_cadang,
+        });
 
         return {
           status: HttpStatus.OK,
           message: "success update stock bengkel",
         };
-        
       } else {
         return {
           status: HttpStatus.getStatusCode("Bad Request"),
-          message: "total suku cadang yang dimasukan melebihi stock gudang pusat",
+          message:
+            "total suku cadang yang dimasukan melebihi stock gudang pusat",
         };
       }
-
     } catch (err) {
       console.log(
         "error at updateStockSukuCadang stockBengkelController : ",
+        err
+      );
+      throw new ApiError(
+        "Internal Server Error",
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  },
+
+  async getStockByIdBengkel(req) {
+    try {
+      const { id_bengkel } = req.params;
+      const bengkel = await stockBengkelRepository.getSukuCadangByBengkel(
+        id_bengkel
+      );
+
+      return {
+        status: HttpStatus.OK,
+        message: "success get bengkel data",
+        data: bengkel,
+      };
+    } catch (err) {
+      console.log(
+        "error at getStockByIdBengkel stockBengkelController : ",
         err
       );
       throw new ApiError(
