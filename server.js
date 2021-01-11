@@ -32,6 +32,7 @@ const STATISTIK = require("./routes/statistik");
 const SUKUCADANG = require("./routes/suku_cadang");
 const BENGKEL = require("./routes/bengkel");
 const STOCKBENGKEL = require("./routes/stock_bengkel");
+const REPORTSERVICE = require("./routes/report_service")
 // const PAY = require("./routes/pay");
 // const CHECKOUT = require("./routes/checkout");
 
@@ -58,6 +59,7 @@ app.use("/api/v1/statistik", STATISTIK);
 app.use("/api/v1/suku-cadang", authAdmin, SUKUCADANG);
 app.use("/api/v1/bengkel", BENGKEL);
 app.use("/api/v1/stock-bengkel", STOCKBENGKEL);
+app.use("/api/v1/report-service", REPORTSERVICE);
 // app.use("/api/v1/pay", PAY);
 // app.use("/api/v1/checkout", CHECKOUT);
 

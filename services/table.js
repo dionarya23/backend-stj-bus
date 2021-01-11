@@ -9,7 +9,8 @@ const RouteLocationModel = require("./models/route_location.model");
 const DriverBusModel = require("./models/driver_bus.model");
 const SukuCadangModel = require("./models/suku_cadang.model");
 const BengkelModel = require("./models/bengkel.model");
-const StockBengkelModel = require("./models/stock_bengkel.model")
+const StockBengkelModel = require("./models/stock_bengkel.model");
+const ReportServiceModel = require("./models/reportService.model");
 
 ScheduleBisModel.belongsTo(BisModel, {
   as: "bis",
@@ -24,21 +25,21 @@ ScheduleBisModel.hasMany(OrderModel, {
 });
 
 BengkelModel.hasMany(StockBengkelModel, {
-  as : "pemilik_stock",
+  as: "pemilik_stock",
   constraints: false,
-  foreignKey: "id_bengkel"
+  foreignKey: "id_bengkel",
 });
 
 SukuCadangModel.hasMany(StockBengkelModel, {
   as: "suku_cadang",
-  constraints : false,
-  foreignKey: "id_suku_cadang"
+  constraints: false,
+  foreignKey: "id_suku_cadang",
 });
 
 BengkelModel.belongsTo(UserModel, {
   as: "mekanik",
   constraints: false,
-  foreignKey: "user_id"
+  foreignKey: "user_id",
 });
 
 OrderModel.hasMany(PassengerModel, {
@@ -86,4 +87,5 @@ module.exports = {
   SukuCadang: SukuCadangModel,
   Bengkel: BengkelModel,
   StockBengkel: StockBengkelModel,
+  ReportService: ReportServiceModel,
 };
