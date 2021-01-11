@@ -46,10 +46,10 @@ module.exports = {
     }
   },
 
-  async updateStockBengkel({ id_stock_bengkel, stock_suku_cadang }) {
+  async updateStockBengkel({ id_stock_bengkel, total_suku_cadang }) {
     try {
       await StockBengkel.update(
-        { stock_suku_cadang },
+        { total_suku_cadang },
         {
           where: { id_stock_bengkel },
         }

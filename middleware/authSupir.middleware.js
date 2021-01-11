@@ -16,10 +16,10 @@ module.exports = (req, res, next) => {
           process.env.JWTSECRET
         );
   
-        if (decoded.user.user_type !== "driver") {
+        if (decoded.user.user_type !== "driver" && decoded.user.user_type !== "admin") {
           return res.status(HttpStatus.UNAUTHORIZED).json({
             status: HttpStatus.UNAUTHORIZED,
-            message: "just driver can access this endpoint",
+            message: "just driver and admin can access this endpoint",
           });
         } else {
           next();

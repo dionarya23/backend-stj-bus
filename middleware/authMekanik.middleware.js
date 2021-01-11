@@ -16,10 +16,10 @@ module.exports = (req, res, next) => {
         process.env.JWTSECRET
       );
 
-      if (decoded.user.user_type !== "mechanic") {
+      if (decoded.user.user_type !== "mechanic" && decoded.user.user_type !== "admin") {
         return res.status(HttpStatus.UNAUTHORIZED).json({
           status: HttpStatus.UNAUTHORIZED,
-          message: "just admin can access this endpoint",
+          message: "just admin and mechanic can access this endpoint",
         });
       } else {
         next();

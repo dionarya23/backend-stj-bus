@@ -24,7 +24,7 @@ const reportServiceModel = sequelize.define(
           key: "id_suku_cadang",
         },
     },
-    jumlah_terpakai : {
+    jumlah_yang_terpakai : {
         type: DataTypes.INTEGER,
     },
     description : {
