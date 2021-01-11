@@ -46,13 +46,16 @@ module.exports = {
             "jumlah yang terpakai melebihi stock suku cadang pada bengkel ini",
         };
       }
-
+      await stockBengkelRepository.updateStockBengkel({
+        id_stock_bengkel: stockBengkel.id_stock_bengkel,
+        stock_suku_cadang: stockBengkel.total_suku_cadang - jumlah_terpakai,
+      });
       await reportServiceRepository.createReport({
         id_bengkel,
         id_suku_cadang,
         jumlah_yang_terpakai: jumlah_terpakai,
         description,
-        id_bis : bis_id,
+        id_bis: bis_id,
       });
 
       return {
@@ -67,4 +70,67 @@ module.exports = {
       );
     }
   },
+
+//   async updateReport(req) {
+//     try {
+//       const { id_report_service } = req.params;
+//       const {
+//         id_bengkel,
+//         id_suku_cadang,
+//         jumlah_terpakai,
+//         description,
+//         bis_id,
+//       } = req.body;
+
+//       const bis = await bisRepository.getBisById(bis_id);
+//       const sukuCadang = await sukuCadangRepository.getById(id_suku_cadang);
+//       const bengkel = await bengkelRepository.getOneBengkel(id_bengkel);
+//       const stockBengkel = await stockBengkelRepository.getStockBySukuCadangandBengkel(
+//         { id_suku_cadang, id_bengkel }
+//       );
+
+//       if (bis === null || sukuCadang === null || bengkel === null) {
+//         console.log("Bis : ", bis);
+//         console.log("sukuCadang : ", sukuCadang);
+//         console.log("stockBengkel : ", stockBengkel);
+//         return {
+//           status: HttpStatus.NOT_FOUND,
+//           message: `${
+//             bis === null
+//               ? "bis"
+//               : sukuCadang === null
+//               ? "suku cadang"
+//               : "bengkel"
+//           } not found`,
+//         };
+//       } else if (jumlah_terpakai > stockBengkel.total_suku_cadang) {
+//         return {
+//           status: HttpStatus.BAD_REQUEST,
+//           message:
+//             "jumlah yang terpakai melebihi stock suku cadang pada bengkel ini",
+//         };
+//       }
+
+//       await reportServiceRepository.createReport({
+//         id_bengkel,
+//         id_suku_cadang,
+//         jumlah_yang_terpakai: jumlah_terpakai,
+//         description,
+//         id_bis: bis_id,
+//       });
+      
+
+//       return {
+//         status: HttpStatus.OK,
+//         message: "success update new report",
+//       };
+
+//     } catch (err) {
+//       console.log("error at updateReport at reportServiceController : ", err);
+//       throw new ApiError(
+//         "Internal Server Error",
+//         HttpStatus.INTERNAL_SERVER_ERROR
+//       );
+//     }
+//   },
 };
