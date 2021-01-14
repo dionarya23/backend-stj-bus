@@ -16,7 +16,7 @@ module.exports = {
         payment_type,
       } = req.body;
 
-      db.colletion("midtrans").add(req.body);
+      // db.colletion("midtrans").add(req.body);
 
       if (transaction_status === "deny") {
         return {
