@@ -4,7 +4,7 @@ const HttpStatus = require("http-status-codes");
 const TransactionRepository = require("../repositories/transaction.repository");
 const OrderRepository = require("../repositories/order.repository");
 
-const db = require("../config/firebase").database();
+// const db = require("../config/firebase").database();
 
 module.exports = {
   async postResponse(req) {

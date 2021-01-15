@@ -11,6 +11,7 @@ const SukuCadangModel = require("./models/suku_cadang.model");
 const BengkelModel = require("./models/bengkel.model");
 const StockBengkelModel = require("./models/stock_bengkel.model");
 const ReportServiceModel = require("./models/reportService.model");
+const PermintaanSukuCadangModel = require("./models/permintaan_suku_cadang.model");
 
 ScheduleBisModel.belongsTo(BisModel, {
   as: "bis",
@@ -40,6 +41,12 @@ BengkelModel.belongsTo(UserModel, {
   as: "mekanik",
   constraints: false,
   foreignKey: "user_id",
+});
+
+PermintaanSukuCadangModel.belongsTo(StockBengkelModel, {
+  as : "permintaan",
+  constraints: false,
+  foreignKey: "id_stock_bengkel"
 });
 
 OrderModel.hasMany(PassengerModel, {
@@ -88,4 +95,5 @@ module.exports = {
   Bengkel: BengkelModel,
   StockBengkel: StockBengkelModel,
   ReportService: ReportServiceModel,
+  PermintaanSukuCadang: PermintaanSukuCadangModel
 };
